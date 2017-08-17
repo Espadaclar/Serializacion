@@ -16,6 +16,16 @@ import java.util.*;
  *                     hacia un medio de almacenamiento o hacia un ordenador remoto.
  *  ‘OjectInputStream’  es una cl que construye un flujo de datos que permite construir un objeto desde fuera hacia fuera.
 
+ * --------- CONSTANTE  'serialVersion' -----------------  
+ 
+ *Todos los programas de java tiene su huella, su  dni. Tiene el nombre de ‘SHA’ consta de 20 bytes.
+ *Para enviar un programa serializado por la red, el emisor y el receptor tienen que tener la misma huella,
+ *Esta huella la crea JAVA automáticamente en función del código que tenga el programa, Si el emisor cambia el codigo
+ *La huella del proyeto cambia y el receptor no puede recibir las actualizaciones.
+ *Para evitar esto utilizamos la constante ‘serialVersionUID’, para crear nuestra provia huella y no dejar que 
+ *java lo haga automáticamente. Podemos darle el valor que queramos, un 1 un 2.
+ *De esta forma la huella no cambia a pesar del cambio de codigo en el programa.
+ *Emisor y receptor tienen que tener la misma constante con el mismo valor.
 
  * @author FranciscoJavier
  */
@@ -72,7 +82,10 @@ public class Serializacion {
 }
 
 class Empleado implements Serializable{
-
+    // por implementar la interface Serializable tenemos que declarar
+    //variable para mantener la huella que java genera automáticamente en cada proyecto, dependiendo del 
+    // código que el proyecto tenga, si se modifica el código java cambiaría la hueya o 'SHA'.
+    private static final long serialVersion = 1L;
     private String name;
     private int edad;
     private Date fechaContrato;
@@ -115,7 +128,11 @@ class Empleado implements Serializable{
 }
 
 class Administrador extends Empleado {
-
+    // por heredar de una cl que implementa la interface Serializable tenemos que declarar
+    //variable para mantener la huella que java genera automáticamente en cada proyecto, dependiendo del 
+    // código que el proyecto tenga, si se modifica el código java cambiaría la hueya o 'SHA'.
+    
+    private static final long serialVersion = 1L;
     private double incentivo;
 
     public Administrador(String name, int edad, double sueldo, int anno, int mes, int dia) {
